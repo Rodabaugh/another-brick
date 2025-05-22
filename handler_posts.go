@@ -79,3 +79,25 @@ func (cfg *apiConfig) handlerPostsGet(w http.ResponseWriter, r *http.Request) {
 
 	respondWithJSON(w, http.StatusOK, posts)
 }
+
+func (cfg *apiConfig) handlerPostsDelete(w http.ResponseWriter, r *http.Request) {
+	rawPostID := r.PathValue("post_id")
+	if rawPostID == "" {
+		respondWithError(w, http.StatusBadRequest, "No Post id was provided", fmt.Errorf("no post id was provided"))
+		return
+	}
+
+	postID, err := uuid.Parse(rawPostID)
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid post ID", err)
+		return
+	}
+
+	err = cfg.db.DeletePostByID(r.Context(), postID)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, "Unable to delete", err)
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, Post{})
+}

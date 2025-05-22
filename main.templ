@@ -33,6 +33,7 @@ templ posts(posts []Post, _ error){
                 <hr>
                 <p>{post.Content}<br>
                 {post.CreatedAt.Local().Format("2006-01-02T15:04:05")}</p>
+                <button hx-delete={"/api/posts/" + post.ID.String()} hx-swap="outerHTML">Delete</button>
             </div>
         }
     </div>

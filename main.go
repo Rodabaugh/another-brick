@@ -60,6 +60,7 @@ func main() {
 
 	mux.HandleFunc("POST /api/posts", apiCfg.handlerPostsCreate)
 	mux.HandleFunc("GET /api/posts", apiCfg.handlerPostsGet)
+	mux.HandleFunc("DELETE /api/posts/{post_id}", apiCfg.handlerPostsDelete)
 
 	server := &http.Server{
 		Addr:         ":" + port,

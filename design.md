@@ -1,8 +1,8 @@
 **Backend**
 /api/posts endpoint
 - [X] POST
-- [ ] GET
-- [ ] DELETE
+- [X] GET
+- [X] DELETE
 
 /admin/reset endpoint
 
@@ -18,7 +18,9 @@ New Post
 - HTMX to call POST /api/posts
 
 Posts
-- [ ] Table of posts
-- [ ] Delete button for each post
-- [ ] Button call DELETE /api/posts
+- [X] Table of posts
+- [X] Delete button for each post
+- [X] Button call DELETE /api/posts
 - [ ] Like button for each post?
+- [ ]Formatting
+- [ ] Better responces

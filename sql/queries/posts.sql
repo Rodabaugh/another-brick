@@ -10,3 +10,6 @@ SELECT * FROM posts;
 
 -- name: GetPostByID :one
 SELECT * FROM posts WHERE id = $1;
+
+-- name: DeletePostByID :exec
+DELETE FROM posts WHERE id = $1;
