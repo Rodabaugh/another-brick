@@ -11,7 +11,7 @@ SQLC for interaction with the database
 
 **Frontend**
 Header
-- [ ] Site Name
+- [X] Site Name
 
 New Post
 - [X] Somewhere to enter new posts
@@ -22,5 +22,5 @@ Posts
 - [X] Delete button for each post
 - [X] Button call DELETE /api/posts
 - [ ] Like button for each post?
-- [ ]Formatting
-- [ ] Better responces
+- [X]Formatting
+- [X] Better responces

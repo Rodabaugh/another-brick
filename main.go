@@ -14,8 +14,10 @@ import (
 )
 
 type apiConfig struct {
-	platform string
-	db       *database.Queries
+	platform  string
+	db        *database.Queries
+	siteTitle string
+	subTitle  string
 }
 
 func main() {
@@ -29,6 +31,16 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
+	}
+
+	siteTitle := os.Getenv("SITE_TITLE")
+	if siteTitle == "" {
+		siteTitle = "Another Brick"
+	}
+
+	subTitle := os.Getenv("SUB_TITLE")
+	if subTitle == "" {
+		subTitle = "in the"
 	}
 
 	dbURL := os.Getenv("DB_URL")
@@ -48,8 +60,10 @@ func main() {
 	dbQueries := database.New(dbConn)
 
 	apiCfg := apiConfig{
-		platform: platform,
-		db:       dbQueries,
+		platform:  platform,
+		db:        dbQueries,
+		siteTitle: siteTitle,
+		subTitle:  subTitle,
 	}
 
 	mux := http.NewServeMux()

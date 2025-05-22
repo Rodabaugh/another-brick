@@ -40,14 +40,19 @@ func (cfg *apiConfig) handlerPostsCreate(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	respondWithJSON(w, http.StatusCreated, response{
-		Post: Post{
-			ID:        post.ID,
-			CreatedAt: post.CreatedAt,
-			UpdatedAt: post.UpdatedAt,
-			Content:   post.Content,
-		},
-	})
+	if r.Header.Get("Accept") == "application/json" {
+		respondWithJSON(w, http.StatusCreated, response{
+			Post: Post{
+				ID:        post.ID,
+				CreatedAt: post.CreatedAt,
+				UpdatedAt: post.UpdatedAt,
+				Content:   post.Content,
+			},
+		})
+		return
+	} else {
+		PostsList(cfg.Posts()).Render(r.Context(), w)
+	}
 }
 
 func (cfg *apiConfig) Posts() ([]Post, error) {
@@ -99,5 +104,10 @@ func (cfg *apiConfig) handlerPostsDelete(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, Post{})
+	if r.Header.Get("Content-Type") == "application/json" {
+		respondWithJSON(w, http.StatusOK, Post{})
+		return
+	} else {
+		PostsList(cfg.Posts()).Render(r.Context(), w)
+	}
 }

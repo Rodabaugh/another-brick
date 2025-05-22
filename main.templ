@@ -1,6 +1,18 @@
 package main
 
-templ header(){
+css base() {
+    background-color: #191724;
+    color: #e0def4;
+    font-family: Monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 1.5em;
+}
+
+templ head(){
     <head>
         <script src="https://unpkg.com/htmx.org@2.0.4"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
@@ -8,10 +20,17 @@ templ header(){
     </head>
 }
 
+templ header(cfg *apiConfig){
+    <div style="line-height: .2;">
+        <h1>{cfg.siteTitle}</h1>
+        <h4>{cfg.subTitle}</h4>
+    </div>
+}
+
 templ newPost(){
     <div class="post-form">
         <form
-            hx-target="#response" 
+            hx-target="#posts-list" 
             hx-post="/api/posts"
             hx-ext="json-enc"
         >
@@ -19,21 +38,21 @@ templ newPost(){
                 type="text"
                 name="content"
                 placeholder="Post text"
+                size="50"
             />
             <button type="submit">Send</button>
         </form>
-        <div id="response"></div>
     </div>
 }
 
-templ posts(posts []Post, _ error){
+templ PostsList(posts []Post, _ error){
     <div id="posts-list" class="posts-list">
         for _, post := range posts{
             <div class="post-item">
                 <hr>
                 <p>{post.Content}<br>
                 {post.CreatedAt.Local().Format("2006-01-02T15:04:05")}</p>
-                <button hx-delete={"/api/posts/" + post.ID.String()} hx-swap="outerHTML">Delete</button>
+                <button hx-delete={"/api/posts/" + post.ID.String()} hx-target="#posts-list">Delete</button>
             </div>
         }
     </div>
@@ -42,12 +61,12 @@ templ posts(posts []Post, _ error){
 templ MainPage(cfg *apiConfig){
     <!DOCTYPE html>
     <html>
-        @header()
-        <body>
-            <h1>Init Page</h1>
-            @newPost()
+        @head()
+        <body class={base()}>
+            <center>@header(cfg)</center>
+            <center>@newPost()</center>
             <br>
-            @posts(cfg.Posts())
+            @PostsList(cfg.Posts())
         </body>
     </html>
 }
