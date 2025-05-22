@@ -1,6 +1,6 @@
 **Backend**
 /api/posts endpoint
-- [ ] POST
+- [X] POST
 - [ ] GET
 - [ ] DELETE
 
@@ -14,7 +14,7 @@ Header
 - [ ] Site Name
 
 New Post
-- [ ] Somewhere to enter new posts
+- [X] Somewhere to enter new posts
 - HTMX to call POST /api/posts
 
 Posts

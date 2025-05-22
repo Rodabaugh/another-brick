@@ -3,8 +3,27 @@ package main
 templ header(){
     <head>
         <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+        <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
         <title>Another Brick</title>
     </head>
+}
+
+templ newPost(){
+    <div class="post-form">
+        <form
+            hx-target="#response" 
+            hx-post="/api/posts"
+            hx-ext="json-enc"
+        >
+            <input
+                type="text"
+                name="content"
+                placeholder="Post text"
+            />
+            <button type="submit">Send</button>
+        </form>
+        <div id="response"></div>
+    </div>
 }
 
 templ MainPage(){
@@ -13,6 +32,7 @@ templ MainPage(){
         @header()
         <body>
             <h1>Init Page</h1>
+            @newPost()
         </body>
     </html>
 }
