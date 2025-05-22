@@ -26,13 +26,27 @@ templ newPost(){
     </div>
 }
 
-templ MainPage(){
+templ posts(posts []Post, _ error){
+    <div id="posts-list" class="posts-list">
+        for _, post := range posts{
+            <div class="post-item">
+                <hr>
+                <p>{post.Content}<br>
+                {post.CreatedAt.Local().Format("2006-01-02T15:04:05")}</p>
+            </div>
+        }
+    </div>
+}
+
+templ MainPage(cfg *apiConfig){
     <!DOCTYPE html>
     <html>
         @header()
         <body>
             <h1>Init Page</h1>
             @newPost()
+            <br>
+            @posts(cfg.Posts())
         </body>
     </html>
 }

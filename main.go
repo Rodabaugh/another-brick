@@ -55,10 +55,11 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		MainPage().Render(r.Context(), w)
+		MainPage(&apiCfg).Render(r.Context(), w)
 	})
 
 	mux.HandleFunc("POST /api/posts", apiCfg.handlerPostsCreate)
+	mux.HandleFunc("GET /api/posts", apiCfg.handlerPostsGet)
 
 	server := &http.Server{
 		Addr:         ":" + port,
