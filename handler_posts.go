@@ -104,7 +104,7 @@ func (cfg *apiConfig) handlerPostsDelete(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	if r.Header.Get("Content-Type") == "application/json" {
+	if r.Header.Get("Accept") == "application/json" {
 		respondWithJSON(w, http.StatusOK, Post{})
 		return
 	} else {
